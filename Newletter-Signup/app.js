@@ -40,7 +40,7 @@ app.post("/", function(req, res){
         headers: {
             "Authorization": "marta 9c037b8ce3d19176999a1508e8ce9f4d-us20"
         },
-        // body: jsonData
+        body: jsonData
     }
 
     request(options, function(error, response, body){
@@ -61,11 +61,7 @@ app.post("/failure", function(req, res){
     res.redirect("/");
 });
 
-app.listen(3000, function(req, res){
-    console.log("Server is running on port 3000");
+app.listen(process.env.PORT || 3000, function(req, res){
+    console.log("Server is running on port");
 });
 
-
-// 9c037b8ce3d19176999a1508e8ce9f4d-us20
-
-// 156d6f5c66
