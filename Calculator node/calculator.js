@@ -9,7 +9,7 @@ const port = 3000
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/', function(req, res){
-    res.sendfile(__dirname + "/index.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.get('/bmicalculator', function(req, res){
@@ -26,7 +26,7 @@ app.post("/bmicalculator", function(req, res){
 
     console.log(bmiResult);
 
-    res.send(`<h2>Your BMI is equal to ${bmiResult}</h2>`)
+    res.send(`<h2>Your BMI is equal to ${bmiResult}</h2>`);
 });
 
 
