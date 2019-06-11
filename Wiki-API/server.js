@@ -37,7 +37,7 @@ app.route("/articles")
     })
     .post((req, res) => {
 
-        pool.query('INSERT INTO articles (title, content) VALUES ($1, $2)', [req.body.title, req.body.content], (error, result) => {
+        pool.query('INSERT INTO articles (title, content) VALUES ($1, $2)', [req.body.title, req.body.content], (error, _result) => {
             if (error) {
                 throw error
             }
@@ -46,12 +46,43 @@ app.route("/articles")
 
 
     })
-    .delete((_req, _res) => {
+    .delete((_req, res) => {
         pool.query('DELETE FROM articles', (error, _results) => {
             if (error) {
                 throw error
             }
+            res.send("All articles are deleted");
 
+        })
+    });
+
+app.route("/articles/:articleTitle")
+    .get((req, res) => {
+        pool.query('SELECT * FROM articles WHERE title=$1', [req.params.articleTitle], (error, results) => {
+            if(error) {
+                throw error
+            }
+
+                res.send(results.rows);
+            
+        })
+    })
+
+    .put((req, res) => {
+        pool.query('UPDATE articles SET title=$1, content=$2 WHERE title=$3', [req.body.title, req.body.content, req.params.articleTitle], (error, _results) => {
+            if(error) {
+                throw error
+            }
+            res.send("Article has been updated");
+        })
+    })
+
+    .delete((req, res) => {
+        pool.query('DELETE FROM articles WHERE title=$1', [req.params.articleTitle], (error, _results) => {
+            if(error) {
+                throw error
+            }
+            res.send("Article has been deleted");
         })
     });
 
